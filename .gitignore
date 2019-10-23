@@ -1,0 +1,10 @@
+Library
+Temp
+Obj
+Build
+.gradle
+.vs
+Unity.*
+*.asset
+*.csproj
+*.csproj
