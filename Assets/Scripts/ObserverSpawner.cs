@@ -5,10 +5,11 @@ public class ObserverSpawner : MonoBehaviour {
     public Transform gameField;
     public Transform observerContainer;
     public Observer observerPrefab;
-    
+
+    private readonly int INITIAL_OBSERVER_COUNT = 200;
+
     private void Start() {
-        int initialObserverCount = 200;
-        CreateObservers(initialObserverCount);
+        CreateObservers(INITIAL_OBSERVER_COUNT);
     }
  
     private void CreateObservers(int num) {
