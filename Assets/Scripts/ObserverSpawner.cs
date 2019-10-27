@@ -7,7 +7,7 @@ public class ObserverSpawner : MonoBehaviour {
     public Observer observerPrefab;
     
     private void Start() {
-        int initialObserverCount = 100;
+        int initialObserverCount = 200;
         CreateObservers(initialObserverCount);
     }
  
@@ -31,12 +31,7 @@ public class ObserverSpawner : MonoBehaviour {
         float rightBoundary = gameFieldPosition.x + (gameFieldScale.x / 2.0f);
         float topBoundary = gameFieldPosition.y + (gameFieldScale.y / 2.0f);
         float bottomBoundary = gameFieldPosition.y - (gameFieldScale.y / 2.0f);
-
-        Debug.Log(leftBoundary);
-        Debug.Log(rightBoundary);
-        Debug.Log(topBoundary);
-        Debug.Log(bottomBoundary);
-
+        
         float leftPosition = Random.Range(leftBoundary, rightBoundary);
         float rightPosition = Random.Range(bottomBoundary, topBoundary);
 

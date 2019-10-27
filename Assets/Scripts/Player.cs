@@ -2,7 +2,7 @@
 
 public class Player : MonoBehaviour {
     private readonly float MOVE_DISTANCE = 1.0f;
-    private readonly float MOVE_SPEED = 5.0f;
+    private readonly float MOVE_SPEED = 4.0f;
 
     private void Update() {
         bool up = Input.GetAxisRaw("Vertical") > 0;
@@ -22,5 +22,16 @@ public class Player : MonoBehaviour {
         if (right) {
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x + MOVE_DISTANCE, transform.position.y), Time.deltaTime * MOVE_SPEED);
         }
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.gameObject.tag == "Observer") {
+            CollidedWithObserver();
+        }
+    }
+
+    private void CollidedWithObserver() {
+        Debug.Log("Observer Contact");
     }
 }
