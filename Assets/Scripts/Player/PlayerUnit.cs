@@ -2,7 +2,7 @@
 
 public class PlayerUnit : MonoBehaviour {
     private readonly float MOVE_DISTANCE = 1.0f;
-    private readonly float MOVE_SPEED = 1.0f;
+    private readonly float MOVE_SPEED = 5.0f;
 
     private void Update() {
         bool up = Input.GetAxisRaw("Vertical") > 0;
