@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerUnit : MonoBehaviour {
+public class Player : MonoBehaviour {
     private readonly float MOVE_DISTANCE = 1.0f;
     private readonly float MOVE_SPEED = 5.0f;
 

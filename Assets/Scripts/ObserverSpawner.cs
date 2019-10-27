@@ -1,25 +1,26 @@
 ﻿using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour {
+public class ObserverSpawner : MonoBehaviour {
     public Transform spawnLocation;
     public Transform gameField;
-    public EnemyUnit enemyUnitPrefab;
-
+    public Transform observerContainer;
+    public Observer observerPrefab;
+    
     private void Start() {
         int initialObserverCount = 100;
-        CreateEnemyUnits(initialObserverCount);
+        CreateObservers(initialObserverCount);
     }
  
-    private void CreateEnemyUnits(int num) {
+    private void CreateObservers(int num) {
         for (int i = 0; i < num; i++) {
-            CreateEnemyUnit();
+            CreateObserver();
         }
     }
 
-    private void CreateEnemyUnit() {
+    private void CreateObserver() {
         SetRandomSpawnLocationInGameField();
-        EnemyUnit enemyUnit = Instantiate(enemyUnitPrefab, spawnLocation).GetComponent<EnemyUnit>();
-        enemyUnit.transform.parent = null;  
+        Observer observer = Instantiate(observerPrefab, spawnLocation).GetComponent<Observer>();
+        observer.transform.parent = observerContainer;
     }
 
     private void SetRandomSpawnLocationInGameField() {
@@ -30,6 +31,11 @@ public class EnemySpawner : MonoBehaviour {
         float rightBoundary = gameFieldPosition.x + (gameFieldScale.x / 2.0f);
         float topBoundary = gameFieldPosition.y + (gameFieldScale.y / 2.0f);
         float bottomBoundary = gameFieldPosition.y - (gameFieldScale.y / 2.0f);
+
+        Debug.Log(leftBoundary);
+        Debug.Log(rightBoundary);
+        Debug.Log(topBoundary);
+        Debug.Log(bottomBoundary);
 
         float leftPosition = Random.Range(leftBoundary, rightBoundary);
         float rightPosition = Random.Range(bottomBoundary, topBoundary);
