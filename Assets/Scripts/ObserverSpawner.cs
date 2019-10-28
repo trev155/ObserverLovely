@@ -8,11 +8,14 @@ public class ObserverSpawner : MonoBehaviour {
 
     private readonly int INITIAL_OBSERVER_COUNT = 200;
 
-    private void Start() {
+    private void Awake() {
         CreateObservers(INITIAL_OBSERVER_COUNT);
     }
  
-    private void CreateObservers(int num) {
+    /*
+     * Create num observers on the game field at random locations.
+     */
+    public void CreateObservers(int num) {
         for (int i = 0; i < num; i++) {
             CreateObserver();
         }
@@ -23,8 +26,9 @@ public class ObserverSpawner : MonoBehaviour {
         Observer observer = Instantiate(observerPrefab, spawnLocation).GetComponent<Observer>();
         observer.transform.parent = observerContainer;
     }
-
+    
     private void SetRandomSpawnLocationInGameField() {
+        
         Vector2 gameFieldScale = gameField.transform.localScale;
         Vector2 gameFieldPosition = gameField.transform.position;
 
@@ -32,7 +36,13 @@ public class ObserverSpawner : MonoBehaviour {
         float rightBoundary = gameFieldPosition.x + (gameFieldScale.x / 2.0f);
         float topBoundary = gameFieldPosition.y + (gameFieldScale.y / 2.0f);
         float bottomBoundary = gameFieldPosition.y - (gameFieldScale.y / 2.0f);
-        
+
+        // don't spawn directly at edges
+        leftBoundary += 1.0f;
+        rightBoundary -= 1.0f;
+        topBoundary -= 1.0f;
+        bottomBoundary += 1.0f;
+
         float leftPosition = Random.Range(leftBoundary, rightBoundary);
         float rightPosition = Random.Range(bottomBoundary, topBoundary);
 
