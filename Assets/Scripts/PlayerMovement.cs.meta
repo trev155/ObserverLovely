@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e1e5aa75670ce18449cbad3b74268330
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - movementDestinationIndicator: {fileID: 9290490211478168, guid: bcedee4b82026d5478f35adeafab4151,
+      type: 3}
+  - movementDestinationLocation: {fileID: 2790414289239954759, guid: 139edb9d3ef9380469bc973b764130b7,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

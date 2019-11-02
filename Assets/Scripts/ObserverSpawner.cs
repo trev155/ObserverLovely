@@ -6,7 +6,7 @@ public class ObserverSpawner : MonoBehaviour {
     public Transform observerContainer;
     public Observer observerPrefab;
 
-    private readonly int INITIAL_OBSERVER_COUNT = 200;
+    private readonly int INITIAL_OBSERVER_COUNT = 300;
 
     private void Awake() {
         CreateObservers(INITIAL_OBSERVER_COUNT);
