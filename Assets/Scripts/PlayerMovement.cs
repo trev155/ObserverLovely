@@ -5,39 +5,27 @@ public class PlayerMovement : MonoBehaviour {
     public Transform movementDestinationIndicator;
     public Transform movementDestinationLocation;
 
+    private bool isMoving;
+    private Vector2 movementDestination;
+    private float currentSpeed = 0f;
+
     private readonly float MOVE_DISTANCE = 1.0f;
-    private readonly float MOVE_SPEED = 4.0f;
+    private readonly float MAX_SPEED = 4.0f;
+    private readonly float STOP_THRESHOLD = 0.01f;
+    private readonly float SLOW_DOWN_THRESHOLD = 1.0f;
+    private readonly float SPEED_UP_THRESHOLD = 1.0f;
+
+    private void Awake() {
+        isMoving = false;
+    }
 
     /*
      * Handle player movement.
      */
     private void Update() {
-        ArrowMovement();
         ClickMovement();
         TouchMovement();
-    }
-
-    /*
-     * Keyboard controls for testing on PC.
-     */
-    private void ArrowMovement() {
-        bool up = Input.GetAxisRaw("Vertical") > 0;
-        bool down = Input.GetAxisRaw("Vertical") < 0;
-        bool left = Input.GetAxisRaw("Horizontal") < 0;
-        bool right = Input.GetAxisRaw("Horizontal") > 0;
-
-        if (up) {
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, transform.position.y + MOVE_DISTANCE), Time.deltaTime * MOVE_SPEED);
-        }
-        if (down) {
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, transform.position.y - MOVE_DISTANCE), Time.deltaTime * MOVE_SPEED);
-        }
-        if (left) {
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x - MOVE_DISTANCE, transform.position.y), Time.deltaTime * MOVE_SPEED);
-        }
-        if (right) {
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x + MOVE_DISTANCE, transform.position.y), Time.deltaTime * MOVE_SPEED);
-        }
+        MoveToDestination();
     }
 
     /*
@@ -47,7 +35,7 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.GetMouseButtonDown(0)) {
             Vector2 clickedPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             IndicatePointedDestination(clickedPosition);
-            MoveToLocation(clickedPosition);
+            SetMovementDestination(clickedPosition);
         }
     }
 
@@ -58,7 +46,7 @@ public class PlayerMovement : MonoBehaviour {
         if (Input.touchCount > 0) {
             Vector2 touchedPosition = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
             IndicatePointedDestination(touchedPosition);
-            MoveToLocation(touchedPosition);
+            SetMovementDestination(touchedPosition);
         }
     }
 
@@ -83,7 +71,25 @@ public class PlayerMovement : MonoBehaviour {
         Destroy(objectToDestroy);
     }
 
-    private void MoveToLocation(Vector2 destination) {
-        // TODO
+    private void SetMovementDestination(Vector2 destination) {
+        movementDestination = destination;
+        isMoving = true;
+    }
+
+    private void MoveToDestination() {
+        if (isMoving) {
+            float distanceToDestination = Vector2.Distance(transform.position, movementDestination);
+            if (distanceToDestination < STOP_THRESHOLD) {
+                isMoving = false;
+                currentSpeed = 0;
+                return;
+            }
+
+            if (currentSpeed < MAX_SPEED) {
+                currentSpeed += 0.1f;
+            }
+            
+            transform.position = Vector2.MoveTowards(transform.position, movementDestination, Time.deltaTime * currentSpeed);
+        }
     }
 }
