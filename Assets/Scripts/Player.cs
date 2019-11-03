@@ -14,11 +14,16 @@ public class Player : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.tag == "Observer") {
             CollidedWithObserver();
+        } else if (collision.gameObject.tag == "EndZone") {
+            transform.position = respawnPosition.position;
+            playerMovement.SetIsMoving(false);
+
+            // TODO advance the level
         }
     }
 
     /*
-     * Same as the enter
+     * Same as the enter, but handles the case where you are already touching the observer initially.
      */
     private void OnTriggerStay2D(Collider2D collision) {
         if (collision.gameObject.tag == "Observer") {
@@ -35,7 +40,6 @@ public class Player : MonoBehaviour {
 
     private bool IsInSafeZone() {
         Collider2D playerCollider = GetComponent<Collider2D>();
-        Debug.Log(playerCollider);
         GameObject[] safeZones = GameObject.FindGameObjectsWithTag("SafeZone");
         foreach (GameObject safeZone in safeZones) {
             Collider2D safeZoneCollider = safeZone.GetComponent<Collider2D>();
