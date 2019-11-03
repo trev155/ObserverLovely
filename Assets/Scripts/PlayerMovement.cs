@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour {
     private readonly float SPEED_UP_THRESHOLD = 1.0f;
 
     private void Awake() {
-        isMoving = false;
+        SetIsMoving(false);
     }
 
     /*
@@ -73,14 +73,14 @@ public class PlayerMovement : MonoBehaviour {
 
     private void SetMovementDestination(Vector2 destination) {
         movementDestination = destination;
-        isMoving = true;
+        SetIsMoving(true);
     }
 
     private void MoveToDestination() {
         if (isMoving) {
             float distanceToDestination = Vector2.Distance(transform.position, movementDestination);
             if (distanceToDestination < STOP_THRESHOLD) {
-                isMoving = false;
+                SetIsMoving(false);
                 currentSpeed = 0;
                 return;
             }
@@ -91,5 +91,9 @@ public class PlayerMovement : MonoBehaviour {
             
             transform.position = Vector2.MoveTowards(transform.position, movementDestination, Time.deltaTime * currentSpeed);
         }
+    }
+
+    public void SetIsMoving(bool isMoving) {
+        this.isMoving = isMoving;
     }
 }
