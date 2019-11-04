@@ -1,6 +1,10 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+/*
+ * An observer object is the main "enemy" unit where if the player touches it, the player will "die".
+ * Observers move around the game field in random directions.
+ */
 public class Observer : MonoBehaviour {
     private bool isMoving = false;
     private bool isStopping = false;

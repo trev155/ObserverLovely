@@ -182,6 +182,7 @@ Transform:
   - {fileID: 1869729478}
   - {fileID: 1623861032}
   - {fileID: 1091998295}
+  - {fileID: 481066245}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -284,6 +285,49 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 139edb9d3ef9380469bc973b764130b7, type: 3}
+--- !u!1 &481066244
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 481066245}
+  - component: {fileID: 481066246}
+  m_Layer: 0
+  m_Name: Admin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &481066245
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481066244}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 684.10876, y: 923.05164, z: -145.17331}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 360051717}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &481066246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481066244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3515b61e291691d43bdbac5b3beaa867, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -840,7 +884,7 @@ GameObject:
   - component: {fileID: 1091998295}
   - component: {fileID: 1091998296}
   m_Layer: 0
-  m_Name: SpawnLocation
+  m_Name: ObserverSpawnLocation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1037,6 +1081,11 @@ PrefabInstance:
     - target: {fileID: -2200708476277205714, guid: ba440b95d277fc34d937af7667b3c922,
         type: 3}
       propertyPath: movementDestinationLocation
+      value: 
+      objectReference: {fileID: 108012890}
+    - target: {fileID: -2200708476277205714, guid: ba440b95d277fc34d937af7667b3c922,
+        type: 3}
+      propertyPath: movementDestinationIndicatorSpawnLocation
       value: 
       objectReference: {fileID: 108012890}
     - target: {fileID: 1239716154931602831, guid: ba440b95d277fc34d937af7667b3c922,

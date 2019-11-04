@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/*
+ * Handles the creation of observer objects in the game.
+ */
 public class ObserverSpawner : MonoBehaviour {
     public Transform spawnLocation;
     public Transform gameField;
@@ -27,8 +30,10 @@ public class ObserverSpawner : MonoBehaviour {
         observer.transform.parent = observerContainer;
     }
     
+    /*
+     * Move the spawnLocation to a random location in the gameField
+     */
     private void SetRandomSpawnLocationInGameField() {
-        
         Vector2 gameFieldScale = gameField.transform.localScale;
         Vector2 gameFieldPosition = gameField.transform.position;
 

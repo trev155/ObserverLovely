@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/*
+ * The main class for the player. The player can move in the game field with touch (mobile) or click (PC) movements.
+ */
 public class Player : MonoBehaviour {
     private PlayerMovement playerMovement;
     public Transform respawnPosition;
@@ -19,6 +22,7 @@ public class Player : MonoBehaviour {
             playerMovement.SetIsMoving(false);
 
             // TODO advance the level
+            // GameController.LevelCompleted();
         }
     }
 
