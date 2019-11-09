@@ -23,8 +23,12 @@ public class Observer : MonoBehaviour {
             StartCoroutine("MoveInDirection");
         } else if (!isStopping) {
             Vector2 destination = new Vector2(transform.position.x + movementDirection.x, transform.position.y + movementDirection.y);
-            transform.position = Vector2.MoveTowards(transform.position, destination, 1.0f * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, destination, GetObserverSpeed() * Time.deltaTime);
         }
+    }
+
+    private float GetObserverSpeed() {
+        return GameController.Instance.GetObserverSpeed();
     }
 
     /*
