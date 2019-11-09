@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 /*
  * Handles the creation of observer objects in the game.
@@ -9,12 +10,20 @@ public class ObserverSpawner : MonoBehaviour {
     public Transform observerContainer;
     public Observer observerPrefab;
 
-    private readonly int INITIAL_OBSERVER_COUNT = 300;
+    private Dictionary<GameDifficulty, int> observerCountMappingsToGameDifficulty;
 
     private void Awake() {
-        CreateObservers(INITIAL_OBSERVER_COUNT);
+        observerCountMappingsToGameDifficulty = new Dictionary<GameDifficulty, int>() {
+            { GameDifficulty.EASY, 150 },
+            { GameDifficulty.NORMAL, 250 },
+            { GameDifficulty.HARD, 350 }
+        };
+    } 
+    
+    public int GetInitialObserverCount(GameDifficulty gameDifficulty) {
+        return observerCountMappingsToGameDifficulty[gameDifficulty];
     }
- 
+
     /*
      * Create num observers on the game field at random locations.
      */

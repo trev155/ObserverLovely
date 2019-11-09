@@ -5,26 +5,26 @@ using UnityEngine.SceneManagement;
  * Handles main menu canvas actions.
  */
 public class MainMenu : MonoBehaviour {
-    private int difficultySelection;    // 1 = easy, 2 = medium, 3 = hard
+    private GameDifficulty difficultySelection;    // 1 = easy, 2 = medium, 3 = hard
 
     private void Awake() {
-        difficultySelection = 2;
+        difficultySelection = GameDifficulty.NORMAL;    // default
     }
 
     public void EasyButton() {
-        difficultySelection = 1;
+        difficultySelection = GameDifficulty.EASY;
     }
 
     public void MediumButton() {
-        difficultySelection = 2;
+        difficultySelection = GameDifficulty.NORMAL;
     }
 
     public void HardButton() {
-        difficultySelection = 3;
+        difficultySelection = GameDifficulty.HARD;
     }
 
     public void StartGame() {
-        SceneDataTransfer.CurrentGameMode = difficultySelection;
+        SceneDataTransfer.CurrentGameDifficulty = difficultySelection;
         SceneManager.LoadScene("GameField");
     }
 }

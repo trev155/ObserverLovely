@@ -2118,6 +2118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a4e47391b123aa43821cdf2c780d1bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  observerSpawner: {fileID: 1623861033}
 --- !u!1 &2109928061
 GameObject:
   m_ObjectHideFlags: 0

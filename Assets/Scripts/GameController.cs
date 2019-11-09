@@ -4,11 +4,16 @@
  * Handles high level game constructs such as levels and gameplay settings.
  */
 public class GameController : MonoBehaviour {
-    private void Awake() {
-        Test();
-    }
+    public ObserverSpawner observerSpawner;
+    private GameDifficulty gameDifficulty;
 
-    private void Test() {
-        
+    private void Awake() {
+        gameDifficulty = SceneDataTransfer.CurrentGameDifficulty;
+
+        InitializeGame();
+    }
+    
+    public void InitializeGame() {
+        observerSpawner.CreateObservers(observerSpawner.GetInitialObserverCount(gameDifficulty));
     }
 }
