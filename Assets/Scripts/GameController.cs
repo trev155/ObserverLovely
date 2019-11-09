@@ -6,10 +6,14 @@ using UnityEngine;
  */
 public class GameController : MonoBehaviour {
     public ObserverSpawner observerSpawner;
-    private GameDifficulty gameDifficulty;
+    public CanvasController canvasController;
 
-    private Dictionary<GameDifficulty, int> observerCountMappingsToGameDifficulty;
-    private Dictionary<GameDifficulty, float> observerSpeedMappingsToGameDifficulty;
+    private GameDifficulty gameDifficulty;
+    private int lifeCount;
+
+    private Dictionary<GameDifficulty, int> observerCountForGameDifficulty;
+    private Dictionary<GameDifficulty, float> observerSpeedsForGameDifficulty;
+    private Dictionary<GameDifficulty, int> initialLifeCounts;
 
     // Singleton field
     public static GameController Instance { get; private set; } = null;
@@ -22,16 +26,9 @@ public class GameController : MonoBehaviour {
         InitializeSingleton();
 
         gameDifficulty = SceneDataTransfer.CurrentGameDifficulty;
-        observerCountMappingsToGameDifficulty = new Dictionary<GameDifficulty, int>() {
-            { GameDifficulty.EASY, 180 },
-            { GameDifficulty.NORMAL, 240 },
-            { GameDifficulty.HARD, 300 }
-        };
-        observerSpeedMappingsToGameDifficulty = new Dictionary<GameDifficulty, float>() {
-            { GameDifficulty.EASY, 0.8f },
-            { GameDifficulty.NORMAL, 1.1f },
-            { GameDifficulty.HARD, 1.4f }
-        };
+        InitializeGameDifficultyMaps();
+        lifeCount = initialLifeCounts[gameDifficulty];
+        canvasController.InitializeGUI();
 
         InitializeGame();
     }
@@ -45,12 +42,54 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    public void InitializeGame() {
-        observerSpawner.CreateObservers(observerCountMappingsToGameDifficulty[gameDifficulty]);
+    private void InitializeGameDifficultyMaps() {
+        observerCountForGameDifficulty = new Dictionary<GameDifficulty, int>() {
+            { GameDifficulty.EASY, 180 },
+            { GameDifficulty.NORMAL, 240 },
+            { GameDifficulty.HARD, 300 }
+        };
+        observerSpeedsForGameDifficulty = new Dictionary<GameDifficulty, float>() {
+            { GameDifficulty.EASY, 0.8f },
+            { GameDifficulty.NORMAL, 1.1f },
+            { GameDifficulty.HARD, 1.4f }
+        };
+        initialLifeCounts = new Dictionary<GameDifficulty, int>() {
+            { GameDifficulty.EASY, 20 },
+            { GameDifficulty.NORMAL, 10 },
+            { GameDifficulty.HARD, 5 }
+        };
     }
 
-    // Other functions
+    private void InitializeGame() {
+        observerSpawner.CreateObservers(observerCountForGameDifficulty[gameDifficulty]);
+    }
+
+    // API Functions for Game Controller Data
     public float GetObserverSpeed() {
-        return observerSpeedMappingsToGameDifficulty[gameDifficulty];
+        return observerSpeedsForGameDifficulty[gameDifficulty];
+    }
+
+    public int GetLifeCount() {
+        return lifeCount;
+    }
+
+    public string GetGameDifficulty() {
+        switch (gameDifficulty) {
+            case GameDifficulty.EASY:
+                return "Easy";
+            case GameDifficulty.NORMAL:
+                return "Normal";
+            case GameDifficulty.HARD:
+                return "Hard";
+            default:
+                return "unknown";
+        }
+    }
+
+    public void DecreaseLifeCount() {
+        lifeCount--;
+        if (lifeCount == 0) {
+            Debug.Log("GAME OVER");
+        }
     }
 }

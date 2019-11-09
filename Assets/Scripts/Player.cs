@@ -39,6 +39,8 @@ public class Player : MonoBehaviour {
         if (!IsInSafeZone()) {
             transform.position = respawnPosition.position;
             playerMovement.SetIsMoving(false);
+            GameController.Instance.DecreaseLifeCount();
+            GameController.Instance.canvasController.UpdateLivesText();
         }
     }
 
