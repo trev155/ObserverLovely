@@ -15,7 +15,6 @@ public class PlayerMovement : MonoBehaviour {
     private Vector2 movementDestination;
     private float currentSpeed = 0f;
 
-    private readonly float MAX_SPEED = 4.0f;
     private readonly float STOP_THRESHOLD = 0.01f;
 
     private void Awake() {
@@ -103,7 +102,7 @@ public class PlayerMovement : MonoBehaviour {
                 return;
             }
 
-            if (currentSpeed < MAX_SPEED) {
+            if (currentSpeed < GameController.Instance.GetPlayerMaxSpeed()) {
                 currentSpeed += 0.1f;
             }
             
@@ -116,5 +115,9 @@ public class PlayerMovement : MonoBehaviour {
      */
     public void SetIsMoving(bool isMoving) {
         this.isMoving = isMoving;
+    }
+
+    public void ResetCurrentSpeed() {
+        currentSpeed = 0;
     }
 }

@@ -15,7 +15,7 @@ public class GameController : MonoBehaviour {
     private Dictionary<GameDifficulty, int> observerCountForGameDifficulty;
     private Dictionary<GameDifficulty, float> observerSpeedsForGameDifficulty;
     private Dictionary<GameDifficulty, int> initialLifeCounts;
-    private Dictionary<int, float> playerMovementSpeedsPerLevel;
+    private Dictionary<int, float> playerMaxSpeedPerLevel;
 
     // Singleton field
     public static GameController Instance { get; private set; } = null;
@@ -61,10 +61,27 @@ public class GameController : MonoBehaviour {
             { GameDifficulty.NORMAL, 10 },
             { GameDifficulty.HARD, 5 }
         };
-        playerMovementSpeedsPerLevel = new Dictionary<int, float>() {
-            { 1, 4.0f },
-            { 2, 3.0f },
-            { 3, 2.0f }
+        playerMaxSpeedPerLevel = new Dictionary<int, float>() {
+            { 1, 6.0f },
+            { 2, 5.6f },
+            { 3, 5.4f },
+            { 4, 5.2f },
+            { 5, 5.0f },
+            { 6, 4.6f },
+            { 7, 4.3f },
+            { 8, 4.1f },
+            { 9, 4.0f },
+            { 10, 3.8f },
+            { 11, 3.6f },
+            { 12, 3.3f },
+            { 13, 3.0f },
+            { 14, 2.7f },
+            { 15, 2.5f },
+            { 16, 2.3f },
+            { 17, 2.0f },
+            { 18, 1.8f },
+            { 19, 1.6f },
+            { 20, 1.4f },
         };
     }
 
@@ -108,5 +125,14 @@ public class GameController : MonoBehaviour {
     public void LevelCompleted() {
         level++;
         canvasController.UpdateLevelText(); 
+    }
+
+    public float GetPlayerMaxSpeed() {
+        if (playerMaxSpeedPerLevel.ContainsKey(level)) {
+            return playerMaxSpeedPerLevel[level];
+        } else {
+            Debug.Log("No max speed value exists for this level in the mappings.");
+            return 3.0f;
+        }
     }
 }
