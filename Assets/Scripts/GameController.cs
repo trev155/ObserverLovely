@@ -10,10 +10,12 @@ public class GameController : MonoBehaviour {
 
     private GameDifficulty gameDifficulty;
     private int lifeCount;
+    private int level;
 
     private Dictionary<GameDifficulty, int> observerCountForGameDifficulty;
     private Dictionary<GameDifficulty, float> observerSpeedsForGameDifficulty;
     private Dictionary<GameDifficulty, int> initialLifeCounts;
+    private Dictionary<int, float> playerMovementSpeedsPerLevel;
 
     // Singleton field
     public static GameController Instance { get; private set; } = null;
@@ -26,8 +28,9 @@ public class GameController : MonoBehaviour {
         InitializeSingleton();
 
         gameDifficulty = SceneDataTransfer.CurrentGameDifficulty;
-        InitializeGameDifficultyMaps();
+        InitializeDataMaps();
         lifeCount = initialLifeCounts[gameDifficulty];
+        level = 1;
         canvasController.InitializeGUI();
 
         InitializeGame();
@@ -42,7 +45,7 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    private void InitializeGameDifficultyMaps() {
+    private void InitializeDataMaps() {
         observerCountForGameDifficulty = new Dictionary<GameDifficulty, int>() {
             { GameDifficulty.EASY, 180 },
             { GameDifficulty.NORMAL, 240 },
@@ -58,6 +61,11 @@ public class GameController : MonoBehaviour {
             { GameDifficulty.NORMAL, 10 },
             { GameDifficulty.HARD, 5 }
         };
+        playerMovementSpeedsPerLevel = new Dictionary<int, float>() {
+            { 1, 4.0f },
+            { 2, 3.0f },
+            { 3, 2.0f }
+        };
     }
 
     private void InitializeGame() {
@@ -71,6 +79,10 @@ public class GameController : MonoBehaviour {
 
     public int GetLifeCount() {
         return lifeCount;
+    }
+
+    public int GetLevel() {
+        return level;
     }
 
     public string GetGameDifficulty() {
@@ -91,5 +103,10 @@ public class GameController : MonoBehaviour {
         if (lifeCount == 0) {
             Debug.Log("GAME OVER");
         }
+    }
+
+    public void LevelCompleted() {
+        level++;
+        canvasController.UpdateLevelText(); 
     }
 }

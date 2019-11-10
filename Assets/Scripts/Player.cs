@@ -20,9 +20,7 @@ public class Player : MonoBehaviour {
         } else if (collision.gameObject.tag == "EndZone") {
             transform.position = respawnPosition.position;
             playerMovement.SetIsMoving(false);
-
-            // TODO advance the level
-            // GameController.LevelCompleted();
+            GameController.Instance.LevelCompleted();
         }
     }
 

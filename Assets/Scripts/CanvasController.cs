@@ -4,10 +4,12 @@ using UnityEngine.UI;
 public class CanvasController : MonoBehaviour {
     public Text livesText;
     public Text difficultyText;
+    public Text levelText;
 
     public void InitializeGUI() {
         UpdateLivesText();
         UpdateDifficultyText();
+        UpdateLevelText();
     }
 
     public void UpdateLivesText() {
@@ -18,4 +20,7 @@ public class CanvasController : MonoBehaviour {
         difficultyText.text = GameController.Instance.GetGameDifficulty() + "";
     }
 
+    public void UpdateLevelText() {
+        levelText.text = GameController.Instance.GetLevel() + "";
+    }
 }
