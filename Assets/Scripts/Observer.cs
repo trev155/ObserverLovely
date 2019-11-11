@@ -9,9 +9,7 @@ public class Observer : MonoBehaviour {
     private bool isMoving = false;
     private bool isStopping = false;
     private Vector2 movementDirection;
-
-
-
+    
     private readonly float[] movementIntervals = new float[] { 2.0f, 3.0f, 3.5f, 4.0f, 4.5f, 5.0f, 6.0f, 7.0f };
 
     /*
