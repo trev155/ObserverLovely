@@ -10,6 +10,8 @@ public class Observer : MonoBehaviour {
     private bool isStopping = false;
     private Vector2 movementDirection;
 
+
+
     private readonly float[] movementIntervals = new float[] { 2.0f, 3.0f, 3.5f, 4.0f, 4.5f, 5.0f, 6.0f, 7.0f };
 
     /*
@@ -36,9 +38,25 @@ public class Observer : MonoBehaviour {
      */
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.tag == "ObserverBoundary") {
-            Vector2 oppositeDirection = new Vector2(movementDirection.x * -1.0f, movementDirection.y * -1.0f);
-            movementDirection = oppositeDirection;
+            HandleObserverHittingObserverBoundary();
+        } else if (collision.gameObject.tag == "OverflowBoundary") {
+            HandleObserverHittingOverflowBoundary(collision);
         }
+    }
+
+    /*
+     * If the observer collides with an observer boundary, change its current direction to the opposite direction.
+     */
+    private void HandleObserverHittingObserverBoundary() {
+        Vector2 oppositeDirection = new Vector2(movementDirection.x * -1.0f, movementDirection.y * -1.0f);
+        movementDirection = oppositeDirection;
+    }
+
+    /*
+     * If the observer collides with an overflow boundary, move it back to inside the game field.
+     */
+    private void HandleObserverHittingOverflowBoundary(Collider2D collision) {
+        GameController.Instance.observerSpawner.ObserverHitsOutsideBoundary(this, collision);
     }
 
     /*

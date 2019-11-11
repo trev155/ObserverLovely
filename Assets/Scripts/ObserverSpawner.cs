@@ -9,6 +9,11 @@ public class ObserverSpawner : MonoBehaviour {
     public Transform observerContainer;
     public Observer observerPrefab;
 
+    public Transform observerResetPointTop;
+    public Transform observerResetPointBottom;
+    public Transform observerResetPointLeft;
+    public Transform observerResetPointRight;
+
     /*
      * Create num observers on the game field at random locations.
      */
@@ -50,4 +55,23 @@ public class ObserverSpawner : MonoBehaviour {
         spawnLocation.transform.position = randomLocation;
     }
 
+    /*
+     * Handle an observer hitting an outside boundary.
+     * This is so observers are always contained inside the game field.
+     */
+    public void ObserverHitsOutsideBoundary(Observer observer, Collider2D collision) {
+        if (collision.gameObject.name == "LeftBoundary") {
+            ResetObserverPosition(observer, observerResetPointLeft);
+        } else if (collision.gameObject.name == "RightBoundary") {
+            ResetObserverPosition(observer, observerResetPointRight);
+        } else if (collision.gameObject.name == "TopBoundary") {
+            ResetObserverPosition(observer, observerResetPointTop);
+        } else if (collision.gameObject.name == "BottomBoundary") {
+            ResetObserverPosition(observer, observerResetPointBottom);
+        }
+    }
+
+    private void ResetObserverPosition(Observer observer, Transform resetPosition) {
+        observer.transform.position = resetPosition.position;
+    }
 }
