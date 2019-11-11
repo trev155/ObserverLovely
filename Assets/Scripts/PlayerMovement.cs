@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour {
     private Vector2 movementDestination;
     private float currentSpeed = 0f;
 
-    private readonly float STOP_THRESHOLD = 0.01f;
+    private readonly float STOP_THRESHOLD = 0.05f;
 
     private void Awake() {
         SetIsMoving(false);
@@ -95,6 +95,7 @@ public class PlayerMovement : MonoBehaviour {
      */
     private void MoveToDestination() {
         if (isMoving) {
+            // Check if we've reached the destination position
             float distanceToDestination = Vector2.Distance(transform.position, movementDestination);
             if (distanceToDestination < STOP_THRESHOLD) {
                 SetIsMoving(false);
@@ -102,11 +103,16 @@ public class PlayerMovement : MonoBehaviour {
                 return;
             }
 
+            // Increase speed steadily
             if (currentSpeed < GameController.Instance.GetPlayerMaxSpeed()) {
                 currentSpeed += 0.1f;
             }
             
-            transform.position = Vector2.MoveTowards(transform.position, movementDestination, Time.deltaTime * currentSpeed);
+            // Rigidbody movement
+            Rigidbody2D rb2D = GetComponent<Rigidbody2D>();
+            Vector2 movementDirection = movementDestination - (Vector2)transform.position;
+            movementDirection.Normalize();
+            rb2D.MovePosition(rb2D.position + (movementDirection * currentSpeed * Time.deltaTime));
         }
     }
 
