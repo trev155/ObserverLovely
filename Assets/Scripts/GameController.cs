@@ -17,13 +17,13 @@ public class GameController : MonoBehaviour {
     private Dictionary<GameDifficulty, int> initialLifeCounts;
     private Dictionary<int, float> playerMaxSpeedPerLevel;
 
-    // Singleton field
+    // ----- Singleton field -----
     public static GameController Instance { get; private set; } = null;
     public static GameController GetInstance() {
         return Instance;
     }
 
-    // Initialization Functions
+    // ----- Initialization Functions -----
     private void Awake() {
         InitializeSingleton();
 
@@ -89,7 +89,7 @@ public class GameController : MonoBehaviour {
         observerSpawner.CreateObservers(observerCountForGameDifficulty[gameDifficulty]);
     }
 
-    // API Functions for Game Controller Data
+    // ----- API Functions for Game Controller Data -----
     public float GetObserverSpeed() {
         return observerSpeedsForGameDifficulty[gameDifficulty];
     }
@@ -122,9 +122,20 @@ public class GameController : MonoBehaviour {
         }
     }
 
+    /*
+     * Advance the level. 
+     */
     public void LevelCompleted() {
+        CheckApplyBonusLives();
         level++;
         canvasController.UpdateLevelText(); 
+    }
+
+    private void CheckApplyBonusLives() {
+        if (level == 5 || level == 10 || level == 15) {
+            lifeCount += 3;
+            canvasController.UpdateLivesText();
+        }
     }
 
     public float GetPlayerMaxSpeed() {
