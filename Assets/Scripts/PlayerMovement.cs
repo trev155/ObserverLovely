@@ -98,7 +98,7 @@ public class PlayerMovement : MonoBehaviour {
             float distanceToDestination = Vector2.Distance(transform.position, movementDestination);
             if (distanceToDestination < STOP_THRESHOLD) {
                 SetIsMoving(false);
-                currentSpeed = 0;
+                ResetCurrentSpeed();
                 return;
             }
 
@@ -117,6 +117,9 @@ public class PlayerMovement : MonoBehaviour {
         this.isMoving = isMoving;
     }
 
+    /*
+     * Set player movement speed back to 0.
+     */
     public void ResetCurrentSpeed() {
         currentSpeed = 0;
     }
